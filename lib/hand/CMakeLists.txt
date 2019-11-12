@@ -6,7 +6,7 @@ project( hand
 
 add_library( ${PROJECT_NAME} SHARED )
 target_sources( ${PROJECT_NAME} PRIVATE    
-    "src/hand.cpp" 
+    "src/evalhand.cpp"
 
     )
 

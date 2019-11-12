@@ -1,8 +1,18 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include "catch.hpp"
-#include "hand/hand.h"
+#include "hand/evalhand.h"
+#include "bidding/bidding.h"
 using namespace br;
 
+Auction auction1()
+{
+    return Auction{
+        Bid{ValidBids::one_club,Players::North},
+        Bid{ValidBids::Pass,Players::East},
+        Bid{ValidBids::Pass,Players::South}
+
+    };
+}
 Hand hand1()
 {
     return Hand{
@@ -112,5 +122,11 @@ TEST_CASE( "Hands ", "[hands]" )
         REQUIRE(14==eh.HPO());
         REQUIRE(16==eh.count_FV(Colour::Club,3));
     }
-
+    SECTION("auction1")
+    {
+        auto a1=auction1();
+        auto g1=GameBidding(a1);
+        auto bRet=g1.addBid(Bid{ValidBids::Pass,Players::West});
+        assert(bRet);
+    }
 }
